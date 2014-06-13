@@ -8,46 +8,54 @@ require './calc.rb'
 num = []
 puts "\n"
 puts "うちの名前はぽよぽよだぽよ!"
-sleep 2
+sleep 1.5
 puts "三山崩しをするぽよ!"
-sleep 2
+sleep 1.5
 puts "一度に1から3つの石をとっていって、最後の石をとれた人の勝ちぽよ!"
-sleep 2
+sleep 2.5
 puts "\n"
 puts "\n"
 puts "\n"
 3.times do |i|
-  puts "#{i+1}番目の石の数はいくつぽよ?"
-  num[i] = gets.chomp.to_i
+  num[i] = (2..6).to_a.sample
 end
+puts "うちが山を作ってあげてるぽよ!"
+sleep 2
 
-
-pp num
-my_turn = true
 puts "\n"
+
+my_turn = [true, false].sample
+puts my_turn ? 'あなたのターンからどうぞぽよ！' : 'うちのターンからいくぽよ！'
+puts "\n"
+sleep 1
+
 100.times do |i|
-  rocks = ['', '', '']
+  rocks = ['1: ', '2: ', '3: ']
 
   3.times do |j|
     num[j].times do
       rocks[j] += '*'
     end
-    p rocks[j]
+    puts rocks[j]
   end
 
+puts "\n"
+sleep 1
   if num.sum > 0
     @user = my_turn ? 'あなた' : 'ぽよぽよ'
     puts "\n"
-    p "#{i+1}ターン目 : #{@user}のターンですぽよ！"
+    puts "#{i+1}ターン目 : #{@user}のターンですぽよ！"
     if my_turn
       # あなた
-      p 'どの山から石をとりますかぽよ'
+      puts 'どの山から石をとりますかぽよ'
       mt = gets.chomp.to_i - 1
-      p '石をいくつとりますかぽよ？'
+      puts '石をいくつとりますかぽよ？'
       rid = gets.chomp.to_i
       num[mt] = num[mt] - rid
+      sleep 0.8
     else
-      sleep 3
+      puts '考え中だぽよ'
+      sleep 2
       # コンピューター
       mt_xor = num[0] ^ num[1] ^ num[2]
       l = 0
@@ -55,11 +63,12 @@ puts "\n"
         l = k if num[k] > num[k] ^ mt_xor
       end
 
-      if l != 0
+      if l != 0 && 1 <= mt_xor && mt_xor <= 3
         num[l] ^= mt_xor
       else
         num[Calc.calc_max(num)[:id]] -= 1
       end
+      sleep 2.5
     end
     my_turn = !my_turn
   else
