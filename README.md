@@ -1,3 +1,7 @@
+## 遊び方
+sudo gem install activesupport && git clone https://github.com/shogochiai/nim_with_poyopoyo.git $$ ruby nim_with_poyopoyo/nim.rb
+
+
 ## nimについて
 
 nimは三山崩しとも言って、シンプルな戦略ゲームです 
