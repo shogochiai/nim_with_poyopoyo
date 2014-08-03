@@ -7,7 +7,7 @@ require './calc.rb'
 
 num = []
 
-talk = lambda do |args={}|
+talk = ->(args={}){
   args = {
     comment: "",
     sleep_time: 0,
@@ -24,7 +24,7 @@ talk = lambda do |args={}|
   end
   puts @before_line + args[:comment] + @after_line
   sleep args[:sleep_time]
-end
+}
 
 serif = {
   introduction: {comment: "うちの名前はぽよぽよだぽよ!", sleep_time: 1.5, before_time: 1, after_time: 0},
@@ -39,9 +39,31 @@ serif = {
   routine_talk: {comment: "", sleep_time: 0, before_time: 0, after_time: 2},
   your_turn: {comment: "", sleep_time: 1, before_time: 1, after_time: 0},
   which_mountain: {comment: "どの山から石をとりますかぽよ", sleep_time: 0, before_time: 0, after_time: 0},
-  how_many_stone: {comment: "石をいくつとりますかぽよ？", sleep_time: 0, before_time: 0, after_time: 0.8}
+  how_many_stone: {comment: "石をいくつとりますかぽよ？", sleep_time: 0.8, before_time: 0, after_time: 0}
 }
 
+think_reply = ->(sum){
+  return case sum
+  when 1
+    'いただくぽよ!!'
+  when 2
+    'ふむふむぽよ〜!'
+  when 3
+    'ふふふぽよ!'
+  when 4
+    'おもしろいぽよ!'
+  when 5
+    'ふーむ、ぽよ!'
+  when 6
+    '読めてきたぽよ!'
+  when 7
+    'きたきたぽよ!'
+  when 8
+    'むむむぽよ!'
+  else
+    '考えてるぽよ...!'
+  end
+}
 
 talk.call(serif[:introduction])
 talk.call(serif[:explain1])
@@ -76,26 +98,7 @@ talk.call(serif[:create_mountain])
       remove_stone = gets.chomp.to_i
       num[selected_mountain] = num[selected_mountain] - remove_stone
     else
-      serif[:routine_talk][:comment] = case num.sum
-      when 1
-        'いただくぽよ!!'
-      when 2
-        'ふむふむぽよ〜!'
-      when 3
-        'ふふふぽよ!'
-      when 4
-        'おもしろいぽよ!'
-      when 5
-        'ふーむ、ぽよ!'
-      when 6
-        '読めてきたぽよ!'
-      when 7
-        'きたきたぽよ!'
-      when 8
-        'むむむぽよ!'
-      else
-        '考えてるぽよ...!'
-      end
+      serif[:routine_talk][:comment] = think_reply(num.sum)
       talk.call(serif[:routine_talk])
 
       # 排他的論理和による必勝アルゴリズム
