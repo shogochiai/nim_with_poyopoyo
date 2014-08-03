@@ -3,7 +3,6 @@ require 'rubygems'
 require 'active_support'
 require 'active_support/core_ext'
 require 'pp'
-require './calc.rb'
 
 num = []
 
