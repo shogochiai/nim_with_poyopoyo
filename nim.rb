@@ -7,78 +7,52 @@ require './calc.rb'
 
 num = []
 
-talk = lambda do |comment, args={}|
+talk = lambda do |args={}|
   args = {
+    comment: "",
     sleep_time: 0,
-    before_num: 0,
-    after_num: 0
+    before_time: 0,
+    after_time: 0
   }.merge(args)
 
   ['before', 'after'].each do |stuck|
     new_line = ""
-    args["#{stuck}_num".to_sym].times do
+    args["#{stuck}_time".to_sym].times do
       new_line += "\n"
     end
     instance_variable_set("@#{stuck}_line", new_line)
   end
-  puts @before_line + comment + @after_line
+  puts @before_line + args[:comment] + @after_line
   sleep args[:sleep_time]
 end
 
 serif = {
   introduction: {comment: "うちの名前はぽよぽよだぽよ!", sleep_time: 1.5, before_time: 1, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
-  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0}
+  explain1: {comment: "三つの山から石をとっていくゲームをするぽよ!", sleep_time: 1.5, before_time: 0, after_time: 0},
+  explain2: {comment: "一度に1から3つの石をとっていって、最後の石をとれた人の勝ちぽよ!", sleep_time: 2.5, before_time: 0, after_time: 3},
+  turn: {comment: "", sleep_time: 1, before_time: 0, after_time: 1},
+  create_mountain: {comment: "うちが山を作ってあげてるぽよ!", sleep_time: 2, before_time: 0, after_time: 1},
+  mountain0: {comment: "", sleep_time: 0, before_time: 0, after_time: 1},
+  mountain1: {comment: "", sleep_time: 0, before_time: 0, after_time: 1},
+  mountain2: {comment: "", sleep_time: 0, before_time: 0, after_time: 1},
+  get_anounce: {comment: "", sleep_time: 2.5, before_time: 0, after_time: 1},
+  routine_talk: {comment: "", sleep_time: 0, before_time: 0, after_time: 2},
+  your_turn: {comment: "", sleep_time: 1, before_time: 1, after_time: 0},
+  which_mountain: {comment: "どの山から石をとりますかぽよ", sleep_time: 0, before_time: 0, after_time: 0},
+  how_many_stone: {comment: "石をいくつとりますかぽよ？", sleep_time: 0, before_time: 0, after_time: 0.8}
 }
 
 
-talk.call("うちの名前はぽよぽよだぽよ!", sleep_time: 1.5, before_num: 1)
-talk.call("三つの山から石をとっていくゲームをするぽよ!", sleep_time: 1.5)
-talk.call("一度に1から3つの石をとっていって、最後の石をとれた人の勝ちぽよ!", sleep_time: 2.5, after_num: 3)
+talk.call(serif[:introduction])
+talk.call(serif[:explain1])
+talk.call(serif[:explain2])
 
 my_turn = [true, false].sample
-start_comment = my_turn ? "今回はあなたのターンからどうぞぽよ!" : "うちのターンからいくぽよ!"
-talk.call(start_comment, sleep_time: 1, after_num: 1)
-
+serif[:turn][:comment] = my_turn ? "今回はあなたのターンからどうぞぽよ!" : "うちのターンからいくぽよ!"
+talk.call(serif[:turn])
 
 3.times { |i| num[i] = (4..8).to_a.sample }
-puts "うちが山を作ってあげてるぽよ!"; sleep 2; puts "\n"
-talk.call(start_comment, sleep_time: 1, after_num: 1)
+talk.call(serif[:create_mountain])
 
 100.times do |i|
   mountains = ['1: ', '2: ', '3: ']
@@ -87,41 +61,42 @@ talk.call(start_comment, sleep_time: 1, after_num: 1)
     num[j].times do
       mountains[j] += '*'
     end
-    puts mountains[j]
+    serif["mountain#{j}".to_sym][:comment] = mountains[j]
+    talk.call(serif["mountain#{j}".to_sym])
   end
-  puts "\n"; sleep 1
 
   if num.sum > 0
     @user = my_turn ? "あなた" : "ぽよぽよ"
-    puts "\n#{i+1}ターン目 : #{@user}のターンですぽよ！"
+    serif[:your_turn][:comment] = "#{i+1}ターン目 : #{@user}のターンですぽよ！"
+    talk.call(serif[:your_turn])
     if my_turn
-      puts 'どの山から石をとりますかぽよ'
+      talk.call(serif[:which_mountain])
       selected_mountain = gets.chomp.to_i - 1
-      puts '石をいくつとりますかぽよ？'
+      talk.call(serif[:how_many_stone])
       remove_stone = gets.chomp.to_i
       num[selected_mountain] = num[selected_mountain] - remove_stone
-      sleep 0.8
     else
-      case num.sum
+      serif[:routine_talk][:comment] = case num.sum
       when 1
-        puts 'いただくぽよ!!'
+        'いただくぽよ!!'
       when 2
-        puts 'ふむふむぽよ〜!'
+        'ふむふむぽよ〜!'
       when 3
-        puts 'ふふふぽよ!'
+        'ふふふぽよ!'
       when 4
-        puts 'おもしろいぽよ!'
+        'おもしろいぽよ!'
       when 5
-        puts 'ふーむ、ぽよ!'
+        'ふーむ、ぽよ!'
       when 6
-        puts '読めてきたぽよ!'
+        '読めてきたぽよ!'
       when 7
-        puts 'きたきたぽよ!'
+        'きたきたぽよ!'
       when 8
-        puts 'むむむぽよ!'
+        'むむむぽよ!'
       else
-        puts '考えてるぽよ...!'
-      end; sleep 2
+        '考えてるぽよ...!'
+      end
+      talk.call(serif[:routine_talk])
 
       # 排他的論理和による必勝アルゴリズム
       mt_xor = num[0] ^ num[1] ^ num[2]
@@ -130,10 +105,20 @@ talk.call(start_comment, sleep_time: 1, after_num: 1)
 
       # 必勝パターンに当てはまらなければ最大の山から1だけ取って相手のミスを待つ
       if l != 0 && 1 <= mt_xor && mt_xor <= 3
+        before_num = num
         num[l] ^= mt_xor
+        3.times do |i|
+          if diff = before_num[i] - num[i] != 0
+            serif[:get_anounce][:comment] = "#{i}番目の山から, #{diff}個の石を取ったぽよ!"
+            break
+          end
+        end
       else
-        num[Calc.calc_max(num)[:id]] -= 1
-      end; sleep 2.5
+        i, diff = Calc.calc_max(num)[:id], 1
+        num[i] -= diff
+        serif[:get_anounce][:comment] = "#{i}番目の山から, #{diff}個の石を取ったぽよ!"
+      end
+      talk.call(serif[:get_anounce])
     end
     my_turn = !my_turn
   else
