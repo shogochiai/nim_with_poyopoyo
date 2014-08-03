@@ -25,6 +25,48 @@ talk = lambda do |comment, args={}|
   sleep args[:sleep_time]
 end
 
+serif = {
+  introduction: {comment: "うちの名前はぽよぽよだぽよ!", sleep_time: 1.5, before_time: 1, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0},
+  a: {comment: "", sleep_time: 0, before_time: 0, after_time: 0}
+}
+
+
 talk.call("うちの名前はぽよぽよだぽよ!", sleep_time: 1.5, before_num: 1)
 talk.call("三つの山から石をとっていくゲームをするぽよ!", sleep_time: 1.5)
 talk.call("一度に1から3つの石をとっていって、最後の石をとれた人の勝ちぽよ!", sleep_time: 2.5, after_num: 3)
@@ -36,6 +78,7 @@ talk.call(start_comment, sleep_time: 1, after_num: 1)
 
 3.times { |i| num[i] = (4..8).to_a.sample }
 puts "うちが山を作ってあげてるぽよ!"; sleep 2; puts "\n"
+talk.call(start_comment, sleep_time: 1, after_num: 1)
 
 100.times do |i|
   mountains = ['1: ', '2: ', '3: ']
