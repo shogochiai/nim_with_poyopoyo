@@ -49,6 +49,24 @@ define_reply = ->(sum){
   end
 }
 
+calc_max = ->(num){
+  max = num.max
+  max_hash = {}
+  num.each.with_index(1) do |value, i|
+    if value == max
+      max_hash[:id] = i - 1
+      max_hash[:max] = max
+    end
+  end
+  if max_hash.empty?
+    max_hash[:id] = nil
+    max_hash[:max] = nil
+    max_hash
+  else
+    return max_hash
+  end
+}
+
 serif = {
   introduction: {comment: "うちの名前はぽよぽよだぽよ!", sleep_time: 1.5, before_time: 1, after_time: 0},
   explain1: {comment: "三つの山から石をとっていくゲームをするぽよ!", sleep_time: 1.5, before_time: 0, after_time: 0},
@@ -102,25 +120,26 @@ talk.call(serif[:create_mountain])
       serif[:routine_talk][:comment] = define_reply.call(num.sum)
       talk.call(serif[:routine_talk])
 
-      # 排他的論理和による必勝アルゴリズム
+      # 排他的論理和によるほぼ必勝アルゴリズム
       mt_xor = num[0] ^ num[1] ^ num[2]
       l = 0
       3.times { |k| l = k if num[k] > num[k] ^ mt_xor }
 
       # 必勝パターンに当てはまらなければ最大の山から1だけ取って相手のミスを待つ
+      # うまくやればコンピューターはこの処理だけを行うのだが、人間にとってそれは運でしかない
       if l != 0 && 1 <= mt_xor && mt_xor <= 3
         before_num = num
         num[l] ^= mt_xor
         3.times do |i|
           if diff = before_num[i] - num[i] != 0
-            serif[:get_anounce][:comment] = "#{i}番目の山から, #{diff}個の石を取ったぽよ!"
+            serif[:get_anounce][:comment] = "#{i+1}番目の山から, #{diff}個の石を取ったぽよ!"
             break
           end
         end
       else
-        i, diff = Calc.calc_max(num)[:id], 1
+        i, diff = calc_max.call(num)[:id], 1
         num[i] -= diff
-        serif[:get_anounce][:comment] = "#{i}番目の山から, #{diff}個の石を取ったぽよ!"
+        serif[:get_anounce][:comment] = "#{i+1}番目の山から, #{diff}個の石を取ったぽよ!"
       end
       talk.call(serif[:get_anounce])
     end
