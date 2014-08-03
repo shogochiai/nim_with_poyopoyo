@@ -7,6 +7,7 @@ require './calc.rb'
 
 num = []
 
+# 関数定義
 talk = ->(args={}){
   args = {
     comment: "",
@@ -67,6 +68,7 @@ calc_max = ->(num){
   end
 }
 
+# セリフ定義
 serif = {
   introduction: {comment: "うちの名前はぽよぽよだぽよ!", sleep_time: 1.5, before_time: 1, after_time: 0},
   explain1: {comment: "三つの山から石をとっていくゲームをするぽよ!", sleep_time: 1.5, before_time: 0, after_time: 0},
@@ -84,6 +86,7 @@ serif = {
 }
 
 
+# main処理
 talk.call(serif[:introduction])
 talk.call(serif[:explain1])
 talk.call(serif[:explain2])
