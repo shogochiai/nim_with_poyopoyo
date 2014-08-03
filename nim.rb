@@ -7,12 +7,32 @@ require './calc.rb'
 
 num = []
 
-puts "\nうちの名前はぽよぽよだぽよ!"; sleep 1.5
-puts "三山崩しをするぽよ!"; sleep 1.5
-puts "一度に1から3つの石をとっていって、最後の石をとれた人の勝ちぽよ!"; sleep 2.5; puts "\n\n\n"
+talk = lambda do |comment, args={}|
+  args = {
+    sleep_time: 0,
+    before_num: 0,
+    after_num: 0
+  }.merge(args)
+
+  ['before', 'after'].each do |stuck|
+    new_line = ""
+    args["#{stuck}_num".to_sym].times do
+      new_line += "\n"
+    end
+    instance_variable_set("@#{stuck}_line", new_line)
+  end
+  puts @before_line + comment + @after_line
+  sleep args[:sleep_time]
+end
+
+talk.call("うちの名前はぽよぽよだぽよ!", sleep_time: 1.5, before_num: 1)
+talk.call("三つの山から石をとっていくゲームをするぽよ!", sleep_time: 1.5)
+talk.call("一度に1から3つの石をとっていって、最後の石をとれた人の勝ちぽよ!", sleep_time: 2.5, after_num: 3)
 
 my_turn = [true, false].sample
-puts my_turn ? "今回はあなたのターンからどうぞぽよ！\n" : "うちのターンからいくぽよ！\n"; sleep 1
+start_comment = my_turn ? "今回はあなたのターンからどうぞぽよ!" : "うちのターンからいくぽよ!"
+talk.call(start_comment, sleep_time: 1, after_num: 1)
+
 
 3.times { |i| num[i] = (4..8).to_a.sample }
 puts "うちが山を作ってあげてるぽよ!"; sleep 2; puts "\n"
