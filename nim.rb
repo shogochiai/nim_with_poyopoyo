@@ -26,24 +26,8 @@ talk = ->(args={}){
   sleep args[:sleep_time]
 }
 
-serif = {
-  introduction: {comment: "うちの名前はぽよぽよだぽよ!", sleep_time: 1.5, before_time: 1, after_time: 0},
-  explain1: {comment: "三つの山から石をとっていくゲームをするぽよ!", sleep_time: 1.5, before_time: 0, after_time: 0},
-  explain2: {comment: "一度に1から3つの石をとっていって、最後の石をとれた人の勝ちぽよ!", sleep_time: 2.5, before_time: 0, after_time: 3},
-  turn: {comment: "", sleep_time: 1, before_time: 0, after_time: 1},
-  create_mountain: {comment: "うちが山を作ってあげてるぽよ!", sleep_time: 2, before_time: 0, after_time: 1},
-  mountain0: {comment: "", sleep_time: 0, before_time: 0, after_time: 1},
-  mountain1: {comment: "", sleep_time: 0, before_time: 0, after_time: 1},
-  mountain2: {comment: "", sleep_time: 0, before_time: 0, after_time: 1},
-  get_anounce: {comment: "", sleep_time: 2.5, before_time: 0, after_time: 1},
-  routine_talk: {comment: "", sleep_time: 0, before_time: 0, after_time: 2},
-  your_turn: {comment: "", sleep_time: 1, before_time: 1, after_time: 0},
-  which_mountain: {comment: "どの山から石をとりますかぽよ", sleep_time: 0, before_time: 0, after_time: 0},
-  how_many_stone: {comment: "石をいくつとりますかぽよ？", sleep_time: 0.8, before_time: 0, after_time: 0}
-}
-
-think_reply = ->(sum){
-  return case sum
+define_reply = ->(sum){
+  case sum
   when 1
     'いただくぽよ!!'
   when 2
@@ -64,6 +48,23 @@ think_reply = ->(sum){
     '考えてるぽよ...!'
   end
 }
+
+serif = {
+  introduction: {comment: "うちの名前はぽよぽよだぽよ!", sleep_time: 1.5, before_time: 1, after_time: 0},
+  explain1: {comment: "三つの山から石をとっていくゲームをするぽよ!", sleep_time: 1.5, before_time: 0, after_time: 0},
+  explain2: {comment: "一度に1から3つの石をとっていって、最後の石をとれた人の勝ちぽよ!", sleep_time: 2.5, before_time: 0, after_time: 3},
+  turn: {comment: "", sleep_time: 1, before_time: 0, after_time: 1},
+  create_mountain: {comment: "うちが山を作ってあげてるぽよ!", sleep_time: 2, before_time: 0, after_time: 1},
+  mountain0: {comment: "", sleep_time: 0, before_time: 0, after_time: 1},
+  mountain1: {comment: "", sleep_time: 0, before_time: 0, after_time: 1},
+  mountain2: {comment: "", sleep_time: 0, before_time: 0, after_time: 1},
+  get_anounce: {comment: "", sleep_time: 2.5, before_time: 0, after_time: 1},
+  routine_talk: {comment: "", sleep_time: 0, before_time: 0, after_time: 2},
+  your_turn: {comment: "", sleep_time: 1, before_time: 1, after_time: 0},
+  which_mountain: {comment: "どの山から石をとりますかぽよ", sleep_time: 0, before_time: 0, after_time: 0},
+  how_many_stone: {comment: "石をいくつとりますかぽよ？", sleep_time: 0.8, before_time: 0, after_time: 0}
+}
+
 
 talk.call(serif[:introduction])
 talk.call(serif[:explain1])
@@ -98,7 +99,7 @@ talk.call(serif[:create_mountain])
       remove_stone = gets.chomp.to_i
       num[selected_mountain] = num[selected_mountain] - remove_stone
     else
-      serif[:routine_talk][:comment] = think_reply(num.sum)
+      serif[:routine_talk][:comment] = define_reply.call(num.sum)
       talk.call(serif[:routine_talk])
 
       # 排他的論理和による必勝アルゴリズム
